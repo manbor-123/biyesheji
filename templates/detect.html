@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}在线检测{% endblock %}
+{% block body %}
+<div class="grid-2">
+  <div class="card">
+    <h3><i class="iconfont icon-scan"></i> 上传无人机图像</h3>
+    <p class="card-sub">选择模型配置，上传图片即可进行实时小目标检测</p>
+    <form id="d-form">
+      <label>选择实验配置</label>
+      <select name="experiment_id" required>
+        {% for e in experiments %}
+        <option value="{{ e.id }}" {% if e.use_p2 and e.use_cbam and e.use_wiou %}selected{% endif %}>{{ e.name }}（mAP@0.5={{ '%.3f'|format(e.map50) }}）</option>
+        {% endfor %}
+      </select>
+      <label>图像文件</label>
+      <div class="drop-zone" id="drop-zone">
+        <i class="iconfont icon-upload"></i>
+        <div class="drop-zone-text">点击或拖拽图像到此处 · <b>JPG / PNG / BMP</b></div>
+        <div class="drop-zone-text" id="file-name" style="margin-top:6px;color:var(--c-primary);font-weight:600;"></div>
+        <input type="file" name="file" id="file-input" accept="image/*" required>
+      </div>
+      <button class="btn purple" type="submit" style="margin-top:16px;"><i class="iconfont icon-scan"></i> 开始检测</button>
+    </form>
+    <div id="d-msg" class="muted">等待上传…</div>
+  </div>
+  <div class="card">
+    <h3><i class="iconfont icon-target"></i> 检测结果</h3>
+    <p class="card-sub">框选目标 · 置信度 · 类别分布</p>
+    <div id="result-img">
+      <div class="placeholder">
+        <i class="iconfont icon-image"></i>
+        <div>检测结果将在此显示</div>
+      </div>
+    </div>
+    <div id="dist-chart" style="height:260px; display:none; margin-top:14px;"></div>
+  </div>
+</div>
+<div class="card" id="obj-card" style="display:none;">
+  <h3><i class="iconfont icon-record"></i> 目标明细</h3>
+  <table class="data-table" id="obj-table">
+    <thead><tr><th>#</th><th>类别</th><th>置信度</th><th>位置 (x1, y1, x2, y2)</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const fileInput = document.getElementById('file-input');
+const fileName  = document.getElementById('file-name');
+fileInput.addEventListener('change', () => {
+  fileName.textContent = fileInput.files[0] ? '已选择：' + fileInput.files[0].name : '';
+});
+
+document.getElementById('d-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = document.getElementById('d-msg');
+  msg.className = 'muted'; msg.textContent = '检测中…';
+  const fd = new FormData(e.target);
+  try {
+    const r = await fetch('/api/detect', { method: 'POST', body: fd });
+    const d = await r.json();
+    if (!d.success) { msg.className = 'error'; msg.textContent = '失败：' + d.message; return; }
+    msg.className = 'ok';
+    msg.textContent = d.data.record.summary + ' · 推理 ' + d.data.record.inference_ms + ' ms';
+    const src = d.data.result_url + (d.data.result_url.indexOf('?') > -1 ? '&' : '?') + 't=' + Date.now();
+    document.getElementById('result-img').innerHTML =
+      '<img src="' + src + '" alt="检测结果" onclick="openModal(this.src)" style="cursor:zoom-in"/>';
+    const distEl = document.getElementById('dist-chart');
+    distEl.style.display = 'block';
+    echarts.init(distEl).setOption({
+      tooltip: { trigger: 'item' },
+      legend: { bottom: 0, type: 'scroll' },
+      color: ['#6750a4','#ec407a','#00bcd4','#f57c00','#43a047','#9b6dff','#ff9a44','#26a69a','#7e57c2'],
+      series: [{
+        type: 'pie', radius: ['38%','62%'], avoidLabelOverlap: true,
+        label: { formatter: '{b}\n{c} ({d}%)', fontSize: 11 },
+        data: d.data.class_distribution
+      }]
+    });
+    const tb = document.querySelector('#obj-table tbody'); tb.innerHTML = '';
+    d.data.record.objects.forEach((o, i) => {
+      tb.innerHTML +=
+        '<tr><td>' + (i+1) + '</td><td>' + (o.label_cn || o.label) + '</td>' +
+        '<td>' + (o.confidence*100).toFixed(1) + '%</td>' +
+        '<td><code>[' + o.bbox.join(', ') + ']</code></td></tr>';
+    });
+    document.getElementById('obj-card').style.display = 'block';
+  } catch (err) {
+    msg.className = 'error'; msg.textContent = '请求异常：' + err;
+  }
+});
+
+function openModal(src){
+  let m = document.getElementById('img-modal');
+  if(!m){
+    m = document.createElement('div');
+    m.id = 'img-modal'; m.className = 'modal-mask';
+    m.innerHTML = '<span class="modal-close"><i class="iconfont icon-close"></i></span><img>';
+    document.body.appendChild(m);
+    m.addEventListener('click', () => m.classList.remove('show'));
+  }
+  m.querySelector('img').src = src;
+  m.classList.add('show');
+}
+</script>
+{% endblock %}

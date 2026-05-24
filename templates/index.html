@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="hero">
+  <div>
+    <h1>无人机视角行人/车辆<br>小目标智能检测系统</h1>
+    <p class="muted">YOLOv8 · P2 高分辨率检测头 · CBAM 注意力 · Wise-IoU 损失</p>
+    <div class="cta">
+      <a class="btn purple" href="{{ url_for('main.detect_page') }}"><i class="iconfont icon-scan"></i> 立即体验</a>
+      <a class="btn ghost" href="{{ url_for('main.ablation') }}"><i class="iconfont icon-flask"></i> 查看消融实验</a>
+    </div>
+  </div>
+  <i class="iconfont icon-drone hero-icon"></i>
+</section>
+
+<div class="stats">
+  <div class="stat">
+    <i class="iconfont icon-target"></i>
+    <div><div class="stat-v">{{ '%.3f'|format(headline.map50) if headline else '—' }}</div><div class="stat-k">mAP@0.5</div></div>
+  </div>
+  <div class="stat">
+    <i class="iconfont icon-bolt"></i>
+    <div><div class="stat-v">{{ '%.3f'|format(headline.map5095) if headline else '—' }}</div><div class="stat-k">mAP@0.5:0.95</div></div>
+  </div>
+  <div class="stat">
+    <i class="iconfont icon-chart"></i>
+    <div><div class="stat-v">{{ '%.3f'|format(headline.precision) if headline else '—' }}</div><div class="stat-k">Precision</div></div>
+  </div>
+  <div class="stat">
+    <i class="iconfont icon-flask"></i>
+    <div><div class="stat-v">{{ '%.3f'|format(headline.recall) if headline else '—' }}</div><div class="stat-k">Recall</div></div>
+  </div>
+</div>
+
+<div class="grid-3">
+  <div class="card">
+    <i class="iconfont icon-target feat-icon"></i>
+    <h3>P2 高分辨率检测头</h3>
+    <p>新增 160×160 高分辨率特征层，强化超小目标几何信息保留，对无人机视角下数像素级的行人/车辆显著提升召回。</p>
+  </div>
+  <div class="card">
+    <i class="iconfont icon-flask feat-icon"></i>
+    <h3>CBAM 双重注意力</h3>
+    <p>通道 + 空间维度联合注意力机制，自适应聚焦关键特征、抑制复杂航拍背景的干扰，提升判别力。</p>
+  </div>
+  <div class="card">
+    <i class="iconfont icon-chart feat-icon"></i>
+    <h3>Wise-IoU 损失函数</h3>
+    <p>动态聚焦机制根据样本质量调整梯度增益，缓解低质量标注的负向影响，提升边界框回归精度与稳定性。</p>
+  </div>
+</div>
+
+<div class="card">
+  <h3><i class="iconfont icon-chart"></i> 系统能力概览</h3>
+  <p class="card-sub">面向 VisDrone / 航拍小目标检测，覆盖训练、推理、可视化、消融分析全链路</p>
+  <div class="grid-4" style="margin-top:14px;">
+    <div class="rec-card" style="cursor:default;">
+      <div class="img-wrap" style="aspect-ratio:5/3;background:var(--grad-primary);display:flex;align-items:center;justify-content:center;">
+        <i class="iconfont icon-upload" style="width:48px;height:48px;color:#fff;"></i>
+      </div>
+      <div class="rec-info"><div>图像上传检测</div><small>支持 JPG / PNG / BMP</small></div>
+    </div>
+    <div class="rec-card" style="cursor:default;">
+      <div class="img-wrap" style="aspect-ratio:5/3;background:var(--grad-warm);display:flex;align-items:center;justify-content:center;">
+        <i class="iconfont icon-chart" style="width:48px;height:48px;color:#fff;"></i>
+      </div>
+      <div class="rec-info"><div>多模型对比</div><small>柱状 / 雷达可视化</small></div>
+    </div>
+    <div class="rec-card" style="cursor:default;">
+      <div class="img-wrap" style="aspect-ratio:5/3;background:var(--grad-cool);display:flex;align-items:center;justify-content:center;">
+        <i class="iconfont icon-flask" style="width:48px;height:48px;color:#fff;"></i>
+      </div>
+      <div class="rec-info"><div>消融实验</div><small>8 组配置自动评估</small></div>
+    </div>
+    <div class="rec-card" style="cursor:default;">
+      <div class="img-wrap" style="aspect-ratio:5/3;background:linear-gradient(135deg,#43a047,#9ccc65);display:flex;align-items:center;justify-content:center;">
+        <i class="iconfont icon-record" style="width:48px;height:48px;color:#fff;"></i>
+      </div>
+      <div class="rec-info"><div>检测记录</div><small>历史结果可回溯</small></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

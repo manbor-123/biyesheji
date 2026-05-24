@@ -1,0 +1,80 @@
+/* iconfont 矢量图标（参考阿里 iconfont symbol 模式，本地内联 SVG，无外网依赖）
+   用法：<i class="iconfont icon-xxx"></i>
+   颜色：跟随父元素 color（currentColor 通过 background + mask 实现） */
+
+.iconfont {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.18em;
+  background-color: currentColor;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  line-height: 1;
+  font-style: normal;
+  flex-shrink: 0;
+}
+
+.icon-drone {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M192 96a96 96 0 1 1-67 165l-3-3-65 65a32 32 0 0 1-49-41l3-4 65-65A96 96 0 0 1 192 96zm640 0a96 96 0 0 1 65 167l65 65a32 32 0 0 1-41 49l-4-3-65-65A96 96 0 1 1 832 96zM512 320a192 192 0 0 1 192 184l1 8h95a32 32 0 0 1 4 64l-4 0h-96a192 192 0 0 1-184 192l-8 1v95a32 32 0 0 1-64 4l0-4v-96a192 192 0 0 1-192-184l-1-8h-95a32 32 0 0 1-4-64l4 0h96A192 192 0 0 1 440 320l8-1v-95a32 32 0 0 1 64-4l0 4v96zM192 832a96 96 0 1 1 67 165l-3 3-65 65a32 32 0 0 1-49-41l3-4 65-65A96 96 0 0 1 192 832zm640 0a96 96 0 0 1 65 167l65 65a32 32 0 0 1-41 49l-4-3-65-65A96 96 0 1 1 832 832zM512 384a128 128 0 1 0 0 256 128 128 0 0 0 0-256z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M192 96a96 96 0 1 1-67 165l-3-3-65 65a32 32 0 0 1-49-41l3-4 65-65A96 96 0 0 1 192 96zm640 0a96 96 0 0 1 65 167l65 65a32 32 0 0 1-41 49l-4-3-65-65A96 96 0 1 1 832 96zM512 320a192 192 0 0 1 192 184l1 8h95a32 32 0 0 1 4 64l-4 0h-96a192 192 0 0 1-184 192l-8 1v95a32 32 0 0 1-64 4l0-4v-96a192 192 0 0 1-192-184l-1-8h-95a32 32 0 0 1-4-64l4 0h96A192 192 0 0 1 440 320l8-1v-95a32 32 0 0 1 64-4l0 4v96zM192 832a96 96 0 1 1 67 165l-3 3-65 65a32 32 0 0 1-49-41l3-4 65-65A96 96 0 0 1 192 832zm640 0a96 96 0 0 1 65 167l65 65a32 32 0 0 1-41 49l-4-3-65-65A96 96 0 1 1 832 832zM512 384a128 128 0 1 0 0 256 128 128 0 0 0 0-256z'/></svg>");
+}
+
+.icon-home {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M946 505 560 119a64 64 0 0 0-90 0L77 505a32 32 0 0 0 23 55h54v359c0 9 8 16 17 16h179c9 0 16-7 16-16V717c0-9 8-16 16-16h140c9 0 16 7 16 16v202c0 9 7 16 16 16h179c9 0 16-7 16-16V560h54a32 32 0 0 0 23-55z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M946 505 560 119a64 64 0 0 0-90 0L77 505a32 32 0 0 0 23 55h54v359c0 9 8 16 17 16h179c9 0 16-7 16-16V717c0-9 8-16 16-16h140c9 0 16 7 16 16v202c0 9 7 16 16 16h179c9 0 16-7 16-16V560h54a32 32 0 0 0 23-55z'/></svg>");
+}
+
+.icon-chart {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M128 128a32 32 0 0 1 32 32v704h736a32 32 0 0 1 0 64H128a32 32 0 0 1-32-32V160a32 32 0 0 1 32-32zm704 256a32 32 0 0 1 32 32v320a32 32 0 0 1-64 0V416a32 32 0 0 1 32-32zm-192 96a32 32 0 0 1 32 32v224a32 32 0 0 1-64 0V512a32 32 0 0 1 32-32zm-192-160a32 32 0 0 1 32 32v384a32 32 0 0 1-64 0V352a32 32 0 0 1 32-32zm-192 224a32 32 0 0 1 32 32v160a32 32 0 0 1-64 0V576a32 32 0 0 1 32-32z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M128 128a32 32 0 0 1 32 32v704h736a32 32 0 0 1 0 64H128a32 32 0 0 1-32-32V160a32 32 0 0 1 32-32zm704 256a32 32 0 0 1 32 32v320a32 32 0 0 1-64 0V416a32 32 0 0 1 32-32zm-192 96a32 32 0 0 1 32 32v224a32 32 0 0 1-64 0V512a32 32 0 0 1 32-32zm-192-160a32 32 0 0 1 32 32v384a32 32 0 0 1-64 0V352a32 32 0 0 1 32-32zm-192 224a32 32 0 0 1 32 32v160a32 32 0 0 1-64 0V576a32 32 0 0 1 32-32z'/></svg>");
+}
+
+.icon-scan {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M64 96h256a32 32 0 0 1 0 64H96v224a32 32 0 0 1-64 0V128a32 32 0 0 1 32-32zm640 0h256a32 32 0 0 1 32 32v256a32 32 0 0 1-64 0V160H704a32 32 0 0 1 0-64zM64 608a32 32 0 0 1 32 32v224h224a32 32 0 0 1 0 64H64a32 32 0 0 1-32-32V640a32 32 0 0 1 32-32zm896 0a32 32 0 0 1 32 32v256a32 32 0 0 1-32 32H704a32 32 0 0 1 0-64h224V640a32 32 0 0 1 32-32zM64 480h896a32 32 0 0 1 0 64H64a32 32 0 0 1 0-64z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M64 96h256a32 32 0 0 1 0 64H96v224a32 32 0 0 1-64 0V128a32 32 0 0 1 32-32zm640 0h256a32 32 0 0 1 32 32v256a32 32 0 0 1-64 0V160H704a32 32 0 0 1 0-64zM64 608a32 32 0 0 1 32 32v224h224a32 32 0 0 1 0 64H64a32 32 0 0 1-32-32V640a32 32 0 0 1 32-32zm896 0a32 32 0 0 1 32 32v256a32 32 0 0 1-32 32H704a32 32 0 0 1 0-64h224V640a32 32 0 0 1 32-32zM64 480h896a32 32 0 0 1 0 64H64a32 32 0 0 1 0-64z'/></svg>");
+}
+
+.icon-flask {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M352 64h320a32 32 0 0 1 0 64h-32v281l248 372a96 96 0 0 1-80 149H216a96 96 0 0 1-80-149l248-372V128h-32a32 32 0 0 1 0-64zM416 128v288a32 32 0 0 1-5 18L289 614h446L613 434a32 32 0 0 1-5-18V128H416zM246 708l-57 86A32 32 0 0 0 216 842h592a32 32 0 0 0 27-48l-57-86H246zM448 480a32 32 0 1 1 0 64 32 32 0 0 1 0-64zm128 64a48 48 0 1 1 0 96 48 48 0 0 1 0-96z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M352 64h320a32 32 0 0 1 0 64h-32v281l248 372a96 96 0 0 1-80 149H216a96 96 0 0 1-80-149l248-372V128h-32a32 32 0 0 1 0-64zM416 128v288a32 32 0 0 1-5 18L289 614h446L613 434a32 32 0 0 1-5-18V128H416zM246 708l-57 86A32 32 0 0 0 216 842h592a32 32 0 0 0 27-48l-57-86H246zM448 480a32 32 0 1 1 0 64 32 32 0 0 1 0-64zm128 64a48 48 0 1 1 0 96 48 48 0 0 1 0-96z'/></svg>");
+}
+
+.icon-record {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M128 192a64 64 0 0 1 64-64h224l64 96h352a64 64 0 0 1 64 64v448a96 96 0 0 1-96 96H160a64 64 0 0 1-64-64V224a32 32 0 0 1 32-32zm64 32v544h608a32 32 0 0 0 32-32V320H448a32 32 0 0 1-27-15L361 224H192z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M128 192a64 64 0 0 1 64-64h224l64 96h352a64 64 0 0 1 64 64v448a96 96 0 0 1-96 96H160a64 64 0 0 1-64-64V224a32 32 0 0 1 32-32zm64 32v544h608a32 32 0 0 0 32-32V320H448a32 32 0 0 1-27-15L361 224H192z'/></svg>");
+}
+
+.icon-target {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 96a288 288 0 1 1 0 576 288 288 0 0 1 0-576zm0 64a224 224 0 1 0 0 448 224 224 0 0 0 0-448zm0 96a128 128 0 1 1 0 256 128 128 0 0 1 0-256zm0 64a64 64 0 1 0 0 128 64 64 0 0 0 0-128z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 64a384 384 0 1 0 0 768 384 384 0 0 0 0-768zm0 96a288 288 0 1 1 0 576 288 288 0 0 1 0-576zm0 64a224 224 0 1 0 0 448 224 224 0 0 0 0-448zm0 96a128 128 0 1 1 0 256 128 128 0 0 1 0-256zm0 64a64 64 0 1 0 0 128 64 64 0 0 0 0-128z'/></svg>");
+}
+
+.icon-upload {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M512 64a32 32 0 0 1 23 9l192 192a32 32 0 1 1-45 45L544 173v499a32 32 0 0 1-64 0V173L343 311a32 32 0 0 1-45-45l192-192a32 32 0 0 1 22-10zm-352 640a32 32 0 0 1 32 32v160h640V736a32 32 0 0 1 64 0v192a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V736a32 32 0 0 1 32-32z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M512 64a32 32 0 0 1 23 9l192 192a32 32 0 1 1-45 45L544 173v499a32 32 0 0 1-64 0V173L343 311a32 32 0 0 1-45-45l192-192a32 32 0 0 1 22-10zm-352 640a32 32 0 0 1 32 32v160h640V736a32 32 0 0 1 64 0v192a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V736a32 32 0 0 1 32-32z'/></svg>");
+}
+
+.icon-bolt {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M608 64a32 32 0 0 1 30 43L520 384h232a32 32 0 0 1 24 53l-384 480a32 32 0 0 1-55-31L455 640H272a32 32 0 0 1-30-43l160-512A32 32 0 0 1 432 64h176z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M608 64a32 32 0 0 1 30 43L520 384h232a32 32 0 0 1 24 53l-384 480a32 32 0 0 1-55-31L455 640H272a32 32 0 0 1-30-43l160-512A32 32 0 0 1 432 64h176z'/></svg>");
+}
+
+.icon-check {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M913 211a48 48 0 0 1 0 68L445 786a48 48 0 0 1-68 2l-3-2L113 533a48 48 0 0 1 65-71l3 2 230 220L843 213a48 48 0 0 1 70-2z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M913 211a48 48 0 0 1 0 68L445 786a48 48 0 0 1-68 2l-3-2L113 533a48 48 0 0 1 65-71l3 2 230 220L843 213a48 48 0 0 1 70-2z'/></svg>");
+}
+
+.icon-close {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M195 195a64 64 0 0 1 91 0L512 422l226-227a64 64 0 0 1 91 91L602 512l227 226a64 64 0 0 1-91 91L512 602 286 829a64 64 0 0 1-91-91L422 512 195 286a64 64 0 0 1 0-91z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M195 195a64 64 0 0 1 91 0L512 422l226-227a64 64 0 0 1 91 91L602 512l227 226a64 64 0 0 1-91 91L512 602 286 829a64 64 0 0 1-91-91L422 512 195 286a64 64 0 0 1 0-91z'/></svg>");
+}
+
+.icon-image {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M160 128h704a64 64 0 0 1 64 64v640a64 64 0 0 1-64 64H160a64 64 0 0 1-64-64V192a64 64 0 0 1 64-64zm0 64v640h704V192H160zm160 96a96 96 0 1 1 0 192 96 96 0 0 1 0-192zm-32 480 192-256 128 160 96-96 192 192H288z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'><path d='M160 128h704a64 64 0 0 1 64 64v640a64 64 0 0 1-64 64H160a64 64 0 0 1-64-64V192a64 64 0 0 1 64-64zm0 64v640h704V192H160zm160 96a96 96 0 1 1 0 192 96 96 0 0 1 0-192zm-32 480 192-256 128 160 96-96 192 192H288z'/></svg>");
+}

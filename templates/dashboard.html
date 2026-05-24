@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}模型对比 - 无人机检测{% endblock %}
+{% block body %}
+<div class="card">
+  <h3><i class="iconfont icon-chart"></i> 模型性能对比</h3>
+  <p class="card-sub">基线 vs 改进策略 · mAP / Precision / Recall 全维度可视</p>
+  <div class="grid-2">
+    <div class="chart-wrap"><div id="map-chart" style="height:340px;"></div></div>
+    <div class="chart-wrap"><div id="pr-chart"  style="height:340px;"></div></div>
+  </div>
+</div>
+<div class="card">
+  <h3><i class="iconfont icon-flask"></i> 实验列表</h3>
+  <p class="card-sub">共 {{ experiments|length }} 组实验，覆盖三大改进策略的所有组合</p>
+  <div style="overflow-x:auto;">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>名称</th><th>P2</th><th>CBAM</th><th>WIoU</th>
+        <th>mAP@0.5</th><th>mAP@.5:.95</th><th>Precision</th><th>Recall</th><th>FPS</th><th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for e in experiments %}
+      <tr>
+        <td><b>{{ e.name }}</b></td>
+        <td>{% if e.use_p2 %}<span class="tag on"><i class="iconfont icon-check"></i>启用</span>{% else %}<span class="tag off"><i class="iconfont icon-close"></i>无</span>{% endif %}</td>
+        <td>{% if e.use_cbam %}<span class="tag on"><i class="iconfont icon-check"></i>启用</span>{% else %}<span class="tag off"><i class="iconfont icon-close"></i>无</span>{% endif %}</td>
+        <td>{% if e.use_wiou %}<span class="tag on"><i class="iconfont icon-check"></i>启用</span>{% else %}<span class="tag off"><i class="iconfont icon-close"></i>无</span>{% endif %}</td>
+        <td><b>{{ '%.3f'|format(e.map50) }}</b></td>
+        <td>{{ '%.3f'|format(e.map5095) }}</td>
+        <td>{{ '%.3f'|format(e.precision) }}</td>
+        <td>{{ '%.3f'|format(e.recall) }}</td>
+        <td><span class="tag hot"><i class="iconfont icon-bolt"></i>{{ '%.0f'|format(e.fps) }}</span></td>
+        <td class="muted">{{ e.note }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const exps = {{ experiments|tojson }};
+const COLORS = ['#6750a4','#9b6dff','#7e57c2','#5e72e4','#26a69a','#ec407a','#ff9a44','#43a047'];
+
+echarts.init(document.getElementById('map-chart')).setOption({
+  title: { text: 'mAP@0.5 对比', left: 'center', textStyle: { fontSize: 14, color: '#4f378b', fontWeight: 700 } },
+  tooltip: { trigger: 'axis' },
+  grid: { top: 50, left: 48, right: 24, bottom: 90 },
+  xAxis: { type: 'category', data: exps.map(e => e.name), axisLabel: { rotate: 30, fontSize: 10, color: '#5f5774' } },
+  yAxis: { type: 'value', splitLine: { lineStyle: { color: 'rgba(103,80,164,0.08)' } } },
+  series: [{
+    type: 'bar', barWidth: '52%',
+    data: exps.map((e,i) => ({ value: e.map50, itemStyle: {
+      color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+        colorStops: [{ offset: 0, color: COLORS[i % COLORS.length] }, { offset: 1, color: COLORS[(i+1) % COLORS.length] }] },
+      borderRadius: [6,6,0,0] }})),
+    label: { show: true, position: 'top', formatter: p => p.value.toFixed(3), color: '#4f378b', fontWeight: 600 }
+  }]
+});
+
+echarts.init(document.getElementById('pr-chart')).setOption({
+  title: { text: 'Precision / Recall', left: 'center', textStyle: { fontSize: 14, color: '#4f378b', fontWeight: 700 } },
+  tooltip: { trigger: 'axis' },
+  legend: { bottom: 0, data: ['Precision','Recall'] },
+  grid: { top: 50, left: 48, right: 24, bottom: 90 },
+  xAxis: { type: 'category', data: exps.map(e => e.name), axisLabel: { rotate: 30, fontSize: 10, color: '#5f5774' } },
+  yAxis: { type: 'value', splitLine: { lineStyle: { color: 'rgba(103,80,164,0.08)' } } },
+  series: [
+    { name: 'Precision', type: 'bar', barWidth: '32%', data: exps.map(e => e.precision),
+      itemStyle: { color: '#6750a4', borderRadius: [4,4,0,0] } },
+    { name: 'Recall',    type: 'bar', barWidth: '32%', data: exps.map(e => e.recall),
+      itemStyle: { color: '#ec407a', borderRadius: [4,4,0,0] } },
+  ]
+});
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}无人机视角下行人及车辆小目标检测精度提升方法研究{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='lib/iconfont/iconfont.css') }}">
+<script src="{{ url_for('static', filename='lib/echarts.min.js') }}"></script>
+</head>
+<body class="uav-layout">
+{% set ep = request.endpoint or '' %}
+<header class="uav-top">
+  <a class="logo" href="{{ url_for('main.index') }}">
+    <i class="iconfont icon-drone"></i><span>无人机视角下行人及车辆小目标检测精度提升方法研究</span>
+  </a>
+  <nav>
+    <a class="{{ 'active' if ep == 'main.index' }}" href="{{ url_for('main.index') }}"><i class="iconfont icon-home"></i> 主页</a>
+    <a class="{{ 'active' if ep == 'main.dashboard' }}" href="{{ url_for('main.dashboard') }}"><i class="iconfont icon-chart"></i> 模型对比</a>
+    <a class="{{ 'active' if ep == 'main.detect_page' }}" href="{{ url_for('main.detect_page') }}"><i class="iconfont icon-scan"></i> 在线检测</a>
+    <a class="{{ 'active' if ep == 'main.ablation' }}" href="{{ url_for('main.ablation') }}"><i class="iconfont icon-flask"></i> 消融实验</a>
+    <a class="{{ 'active' if ep == 'main.records' }}" href="{{ url_for('main.records') }}"><i class="iconfont icon-record"></i> 检测记录</a>
+  </nav>
+</header>
+<main class="uav-main">{% block body %}{% endblock %}</main>
+{% block scripts %}{% endblock %}
+</body>
+</html>

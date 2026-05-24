@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}检测记录{% endblock %}
+{% block body %}
+<div class="card">
+  <h3><i class="iconfont icon-record"></i> 检测历史记录</h3>
+  <p class="card-sub">最近的检测结果，点击图片可放大查看</p>
+  <div class="grid-cards">
+    {% for r in items %}
+    <div class="rec-card" onclick="openModal('{{ url_for('static', filename=r.result_path) if r.result_path else '' }}')">
+      <div class="img-wrap">
+        {% if r.result_path %}
+          <img src="{{ url_for('static', filename=r.result_path) }}" alt="检测结果" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="no-img" style="display:none;"><i class="iconfont icon-image"></i></div>
+        {% else %}
+          <div class="no-img"><i class="iconfont icon-image"></i></div>
+        {% endif %}
+      </div>
+      <div class="rec-info">
+        <div>{{ r.summary }}</div>
+        <small>{{ r.created_at }} · {{ r.inference_ms }} ms</small>
+      </div>
+    </div>
+    {% else %}
+      <div class="empty">
+        <i class="iconfont icon-record"></i>
+        <div>尚未有检测记录</div>
+        <a class="btn purple" href="{{ url_for('main.detect_page') }}" style="margin-top:14px;"><i class="iconfont icon-scan"></i> 去检测</a>
+      </div>
+    {% endfor %}
+  </div>
+  {% if pages > 1 %}
+  <div class="pagination">
+    {% for p in range(1, pages+1) %}
+      <a class="page {% if p == page %}active{% endif %}" href="?page={{ p }}">{{ p }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<div class="modal-mask" id="img-modal">
+  <span class="modal-close"><i class="iconfont icon-close"></i></span>
+  <img alt="预览">
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const modal = document.getElementById('img-modal');
+function openModal(src){ if(!src) return; modal.querySelector('img').src = src; modal.classList.add('show'); }
+modal.addEventListener('click', () => modal.classList.remove('show'));
+</script>
+{% endblock %}

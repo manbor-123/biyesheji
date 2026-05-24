@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}消融实验{% endblock %}
+{% block body %}
+<div class="card">
+  <h3><i class="iconfont icon-flask"></i> 消融实验（{{ experiments|length }} 组）</h3>
+  <p class="card-sub">系统化组合 P2 / CBAM / Wise-IoU 三种改进策略，量化各项独立贡献与协同效应</p>
+  <div style="overflow-x:auto;">
+  <table class="data-table">
+    <thead>
+      <tr><th>#</th><th>名称</th><th>P2</th><th>CBAM</th><th>WIoU</th><th>mAP@0.5</th><th>Δ vs Baseline</th></tr>
+    </thead>
+    <tbody>
+    {% set baseline = experiments[0].map50 %}
+    {% for e in experiments %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td><b>{{ e.name }}</b></td>
+        <td>{% if e.use_p2 %}<span class="tag on"><i class="iconfont icon-check"></i></span>{% else %}<span class="tag off"><i class="iconfont icon-close"></i></span>{% endif %}</td>
+        <td>{% if e.use_cbam %}<span class="tag on"><i class="iconfont icon-check"></i></span>{% else %}<span class="tag off"><i class="iconfont icon-close"></i></span>{% endif %}</td>
+        <td>{% if e.use_wiou %}<span class="tag on"><i class="iconfont icon-check"></i></span>{% else %}<span class="tag off"><i class="iconfont icon-close"></i></span>{% endif %}</td>
+        <td><b>{{ '%.3f'|format(e.map50) }}</b></td>
+        <td class="{% if e.map50 > baseline %}up{% endif %}">
+          {% if e.map50 > baseline %}+{% endif %}{{ '%.3f'|format(e.map50 - baseline) }}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+<div class="card">
+  <h3><i class="iconfont icon-target"></i> 策略贡献雷达</h3>
+  <p class="card-sub">多维度横向对比，覆盖精度、定位、召回与速度</p>
+  <div class="chart-wrap"><div id="radar" style="height:420px;"></div></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const exps = {{ experiments|tojson }};
+const ind = [
+  { name: 'mAP@0.5',    max: 0.55 },
+  { name: 'Precision',  max: 0.70 },
+  { name: 'Recall',     max: 0.50 },
+  { name: 'FPS',        max: 160  }
+];
+const COLORS = ['#6750a4','#ec407a','#00bcd4','#43a047','#f57c00','#9b6dff','#26a69a','#ef5350'];
+const series = exps.slice(0,8).map((e,i) => ({
+  name: e.name,
+  value: [e.map50, e.precision, e.recall, e.fps],
+  areaStyle: { opacity: 0.10 },
+  lineStyle: { width: 2, color: COLORS[i % COLORS.length] },
+  itemStyle: { color: COLORS[i % COLORS.length] }
+}));
+echarts.init(document.getElementById('radar')).setOption({
+  tooltip: { trigger: 'item' },
+  legend: { bottom: 0, type: 'scroll', textStyle: { fontSize: 11 } },
+  radar: {
+    indicator: ind,
+    splitArea: { areaStyle: { color: ['rgba(103,80,164,0.02)', 'rgba(103,80,164,0.05)'] } },
+    splitLine: { lineStyle: { color: 'rgba(103,80,164,0.18)' } },
+    axisLine:  { lineStyle: { color: 'rgba(103,80,164,0.28)' } },
+    name: { textStyle: { color: '#4f378b', fontWeight: 600 } }
+  },
+  series: [{ type: 'radar', data: series }]
+});
+</script>
+{% endblock %}
